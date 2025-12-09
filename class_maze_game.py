@@ -17,12 +17,6 @@ class Maze_game(arcade.View):
         pass
 
 
-
-
-
-
-
-
     def on_draw(self):
         arcade.start_render()
         arcade.set_background_color(self.back_ground_color)
@@ -40,6 +34,7 @@ class Maze_game(arcade.View):
             arcade.color.WHITE,
             14
         )
+
         if self.game_won:
             arcade.draw_text(
                 "YOU WIN!",
@@ -50,10 +45,3 @@ class Maze_game(arcade.View):
                 anchor_x="center",
                 anchor_y="center"
             )
-
-
-
-
-
-
-
