@@ -12,7 +12,7 @@ class Player(arcade.Sprite):
         self.has_key = False
 
         #למימוש
-        self.texture = arcade.texture()
+        self.texture = arcade.texture
 
     def move_player(self):
         self.center_x += self.change_x * self.speed
