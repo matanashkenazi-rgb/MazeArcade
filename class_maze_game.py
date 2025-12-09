@@ -21,21 +21,23 @@ class Maze_game(arcade.View):
     def setup(self):
         self.game_won=False
 
-        LEVEL_MAP=("WWWWWWWWWWWW"
-                   "E P W W  K W"
-                   "W   W W    W"
-                   "W   W W    W"
-                   "W   W W    W"
-                   "W   W W    W"
-                   "W   W W    W"
-                   "W   W W    W"
-                   "W   W W    W"
-                   "W   WWW    W"
-                   "W          W"
-                   "WWWWWWWWWWWW")
+        map_matrix = [
+            ["W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"],
+            ["E", " ", "P", " ", "W", " ", " ", "K", " ", "W", " ", "W"],
+            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
+            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
+            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
+            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
+            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
+            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
+            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
+            ["W", " ", " ", " ", "W", "W", "W", " ", " ", " ", " ", "W"],
+            ["W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"],
+            ["W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"]
+        ]
         TILE_SIZE=32
 
-        for row_idx, row in enumerate(LEVEL_MAP):
+        for row_idx, row in enumerate(map_matrix):
             for col_idx, cell in enumerate(row):
                 x = col_idx * TILE_SIZE + TILE_SIZE / 2
                 y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
