@@ -36,11 +36,13 @@ class Maze_game(arcade.View):
             ["W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"]
         ]
         TILE_SIZE=32
+        NUM_ROWS = len(map_matrix)
 
         for row_idx, row in enumerate(map_matrix):
             for col_idx, cell in enumerate(row):
                 x = col_idx * TILE_SIZE + TILE_SIZE / 2
-                y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
+                y = (NUM_ROWS - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
+
                 if cell=="W":
                     self.wall_list.append(Wall(x,y))
                 elif cell=="E":
@@ -53,7 +55,7 @@ class Maze_game(arcade.View):
 
 
     def on_draw(self):
-        arcade.start_render()
+        self.clear()
         arcade.set_background_color(self.back_ground_color)
 
         self.wall_list.draw()
@@ -61,7 +63,12 @@ class Maze_game(arcade.View):
         self.exit_list.draw()
         self.player_list.draw()
 
-        key_text = "Key: Collected!" if self.player.has_key else "Key: Not Collected"
+
+        if len(self.player_list) > 0:
+            player = self.player_list[0]  # assume only one player
+            key_text = "Key: Collected!" if player.has_key else "Key: Not Collected"
+        else:
+            key_text = "Key: Not Collected"
         arcade.draw_text(
             key_text,
             10,
@@ -80,3 +87,5 @@ class Maze_game(arcade.View):
                 anchor_x="center",
                 anchor_y="center"
             )
+
+
