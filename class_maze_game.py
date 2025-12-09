@@ -78,10 +78,10 @@ class Maze_game(arcade.View):
 
 
         if self.game_won:
-            arcade.draw_text(
+            arcade.Text(
                 "YOU WIN!",
-                self.window.width // 2,
-                self.window.height // 2,
+                800 / 2,
+                600 / 2,
                 arcade.color.YELLOW,
                 40,
                 anchor_x="center",
