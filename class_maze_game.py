@@ -1,8 +1,4 @@
 import arcade
-import wall_and_exitdoor
-from wall_and_exitdoor import ExitDoor
-import key_class
-
 
 class Maze_game(arcade.View):
     def __init__(self):
@@ -12,6 +8,7 @@ class Maze_game(arcade.View):
         self.exit_list=arcade.SpriteList()
         self.player_list=arcade.SpriteList()
         self.player=arcade.SpriteList()
+        self.player = None
         self.game_won=False
         self.back_ground_color=arcade.color.BLACK
 
@@ -62,19 +59,24 @@ class Maze_game(arcade.View):
         self.exit_list.draw()
         self.player_list.draw()
 
-        if self.player and self.player.has_key:
-            key_text = "Key: Collected!"
-        else:
-            key_text = "Key: Not collected"
-
+        key_text = "Key: Collected!" if self.player.has_key else "Key: Not Collected"
         arcade.draw_text(
             key_text,
-            start_x=10,  # מרחק מהצד השמאלי
-            start_y=self.window.height - 20,  # למעלה
-            color=arcade.color.WHITE,
-            font_size=14
+            10,
+            self.window.height - 20,
+            arcade.color.WHITE,
+            14
         )
-
+        if self.game_won:
+            arcade.draw_text(
+                "YOU WIN!",
+                self.window.width // 2,
+                self.window.height // 2,
+                arcade.color.YELLOW,
+                40,
+                anchor_x="center",
+                anchor_y="center"
+            )
 
 
 
