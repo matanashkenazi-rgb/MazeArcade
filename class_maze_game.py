@@ -3,6 +3,7 @@ from player import Player
 from key_class import Key
 from wall_and_exitdoor import ExitDoor
 from wall_and_exitdoor import Wall
+import random
 
 
 class Maze_game(arcade.View):
@@ -35,20 +36,28 @@ class Maze_game(arcade.View):
             font_size=14
         )
 
-        LEVEL_MAP = [
-            ["W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"],
-            ["E", " ", " ", "W", " ", " ", " ", "W", " ", "K", " ", "W"],
-            ["W", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W"],
-            ["W", " ", " ", " ", " ", "W", " ", " ", " ", "W", " ", "W"],
-            ["W", " ", "W", "W", " ", "W", "W", "W", " ", "W", " ", "W"],
-            ["W", " ", " ", "W", " ", " ", " ", "W", " ", " ", " ", "W"],
-            ["W", "W", " ", "W", "W", "W", " ", "W", "W", "W", " ", "W"],
-            ["W", " ", " ", " ", " ", "W", " ", " ", " ", "W", " ", "W"],
-            ["E", "K", "W", "W", " ", "W", "W", "W", " ", "W", " ", "W"],
-            ["W", "P", " ", " ", " ", " ", " ", "W", " ", " ", " ", "W"],
-            ["W", " ", " ", "W", "W", "W", " ", "W", "W", "W", " ", "W"],
-            ["W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"]
-        ]
+        #read maps from file and create map list
+        maps = []
+
+        with open("maps.txt", "r") as f:
+            # Split the file into separate maps by empty lines
+            maps_string = f.read().strip().split("\n\n")
+
+        for map_string in maps_string:
+            map_matrix = []
+            lines = map_string.strip().split("\n")
+            for line in lines:
+                row = [letter.strip().strip('"') for letter in line.split(",")]
+                map_matrix.append(row)
+            maps.append(map_matrix)
+
+
+
+
+
+
+
+        LEVEL_MAP = random.choice(maps)
         TILE_SIZE=32
         NUM_ROWS = len(LEVEL_MAP)
 

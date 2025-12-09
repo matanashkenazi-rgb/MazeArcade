@@ -8,6 +8,9 @@ SCREEN_TITLE = "Maze Game Test"
 
 
 def main():
+
+
+
     # Create the window
     window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
