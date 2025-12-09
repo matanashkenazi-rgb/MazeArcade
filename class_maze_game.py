@@ -6,7 +6,7 @@ from wall_and_exitdoor import Wall
 import random
 
 
-class Maze_game(arcade.View):
+class MazeGame(arcade.View):
     def __init__(self):
         super().__init__()
         self.wall_list=arcade.SpriteList()

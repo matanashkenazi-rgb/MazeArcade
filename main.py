@@ -1,5 +1,5 @@
 import arcade
-from class_maze_game import Maze_game  # your Maze_game class file
+from class_maze_game import MazeGame  # your Maze_game class file
 
 
 SCREEN_WIDTH = 800
@@ -15,7 +15,7 @@ def main():
     window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
     # Create the Maze_game view
-    maze_view = Maze_game()
+    maze_view = MazeGame()
     maze_view.setup()
 
     # Show the view
