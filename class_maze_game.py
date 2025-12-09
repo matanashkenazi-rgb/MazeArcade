@@ -11,3 +11,13 @@ class Maze_game(arcade.view):
         self.backgaroundcolor=arcade.color.black
 
     def setup(self):
+        self.game_won=False
+
+        LEVEL_MAP=("")
+        TILE_SIZE=32
+
+        for row_idx, row in enumerate(LEVEL_MAP):
+            for col_idx, cell in enumerate(row):
+                x = col_idx * TILE_SIZE + TILE_SIZE / 2
+                y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
+                if cell=="W":
