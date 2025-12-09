@@ -27,7 +27,7 @@ class Maze_game(arcade.View):
                    "W   WWW    W"
                    "W          W"
                    "WWWWWWWWWWWW")
-        TILE_SIZE=31
+        TILE_SIZE=32
 
         for row_idx, row in enumerate(LEVEL_MAP):
             for col_idx, cell in enumerate(row):
