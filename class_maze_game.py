@@ -2,6 +2,7 @@ import arcade
 
 import wall_and_exitdoor
 from wall_and_exitdoor import ExitDoor
+import key_class
 
 
 class Maze_game(arcade.view):
@@ -36,8 +37,13 @@ class Maze_game(arcade.view):
                 x = col_idx * TILE_SIZE + TILE_SIZE / 2
                 y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
                 if cell=="W":
-                self.wall_list.appand(wall(x,y))
-                elif cell=="E"
-                self.exit_list.appand(ExitDoor(x,y))
+                    self.wall_list.appand(wall(x,y))
+                elif cell=="E":
+                    self.exit_list.appand(ExitDoor(x,y))
+                elif cell=="P":
+                    self.player_list.appand(player(x,y))
+                elif cell=="K":
+                    self.key_list.appand(Key(x,y))
+
 
 
