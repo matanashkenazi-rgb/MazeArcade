@@ -1,5 +1,4 @@
 import arcade
-from player import Player
 
 class Maze_game(arcade.View):
     def __init__(self):
@@ -14,7 +13,35 @@ class Maze_game(arcade.View):
         self.back_ground_color=arcade.color.BLACK
 
     def setup(self):
-        pass
+        self.game_won=False
+
+        LEVEL_MAP=("WWWWWWWWWWWW"
+                   "E P W W  K W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   WWW    W"
+                   "W          W"
+                   "WWWWWWWWWWWW")
+        TILE_SIZE=32
+
+        for row_idx, row in enumerate(LEVEL_MAP):
+            for col_idx, cell in enumerate(row):
+                x = col_idx * TILE_SIZE + TILE_SIZE / 2
+                y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
+                if cell=="W":
+                    self.wall_list.appand(wall(x,y))
+                elif cell=="E":
+                    self.exit_list.appand(ExitDoor(x,y))
+                elif cell=="P":
+                    self.player_list.appand(player(x,y))
+                elif cell=="K":
+                    self.key_list.appand(Key(x,y))
+
 
 
     def on_draw(self):
