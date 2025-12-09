@@ -1,5 +1,8 @@
 import arcade
 
+import wall_and_exitdoor
+
+
 class Maze_game(arcade.view):
     def __init__(self):
         self.wall_list=[]
@@ -21,3 +24,5 @@ class Maze_game(arcade.view):
                 x = col_idx * TILE_SIZE + TILE_SIZE / 2
                 y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
                 if cell=="W":
+                wall_and_exitdoor.Wall(x,y)
+
