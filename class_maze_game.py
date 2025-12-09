@@ -73,12 +73,8 @@ class Maze_game(arcade.View):
         self.player_list.draw()
         self.key_text_display.draw()
 
-
-
-
-
         if self.game_won:
-            arcade.Text(
+            arcade.draw_text(
                 "YOU WIN!",
                 800 / 2,
                 600 / 2,
@@ -87,7 +83,6 @@ class Maze_game(arcade.View):
                 anchor_x="center",
                 anchor_y="center"
             )
-
 
     def on_update(self, delta_time):
         player = self.player_list[0]
@@ -108,4 +103,25 @@ class Maze_game(arcade.View):
             self.game_won = True
 
 
+    def on_key_press(self, key, modifiers):
+        if self.game_won:
+            return
 
+
+        player = self.player_list[0]
+
+        if key == arcade.key.UP:
+            player.change_y = 1
+        elif key == arcade.key.DOWN:
+            player.change_y = -1
+        elif key == arcade.key.RIGHT:
+            player.change_x = 1
+        elif key == arcade.key.LEFT:
+            player.change_x = -1
+
+    def on_key_release(self, key, modifiers):
+        player = self.player_list[0]
+        if key == arcade.key.UP or key == arcade.key.DOWN:
+            player.change_y = 0
+        elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
+            player.change_x = 0
