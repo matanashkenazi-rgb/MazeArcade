@@ -1,5 +1,5 @@
 import arcade
-
+#
 class Wall(arcade.Sprite):
     def __init__(self, x, y):
         super().__init__()
