@@ -14,12 +14,21 @@ class Maze_game(arcade.View):
         self.exit_list=arcade.SpriteList()
         self.player_list=arcade.SpriteList()
         self.player=arcade.SpriteList()
-        self.player = None
         self.game_won=False
         self.back_ground_color=arcade.color.BLACK
+        self.key_text_display = None
+
 
     def setup(self):
         self.game_won=False
+
+        self.key_text_display = arcade.Text(
+            "Key: Not Collected",
+            x=10,
+            y=580,
+            color=arcade.color.WHITE,
+            font_size=14
+        )
 
         map_matrix = [
             ["W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"],
@@ -62,20 +71,11 @@ class Maze_game(arcade.View):
         self.key_list.draw()
         self.exit_list.draw()
         self.player_list.draw()
+        self.key_text_display.draw()
 
 
-        if len(self.player_list) > 0:
-            player = self.player_list[0]  # assume only one player
-            key_text = "Key: Collected!" if player.has_key else "Key: Not Collected"
-        else:
-            key_text = "Key: Not Collected"
-        arcade.draw_text(
-            key_text,
-            10,
-            self.window.height - 20,
-            arcade.color.WHITE,
-            14
-        )
+
+
 
         if self.game_won:
             arcade.draw_text(
@@ -87,5 +87,25 @@ class Maze_game(arcade.View):
                 anchor_x="center",
                 anchor_y="center"
             )
+
+
+    def on_update(self, delta_time):
+        player = self.player_list[0]
+        player.move_with_collision(self.wall_list)
+
+        key_hit_list = arcade.check_for_collision_with_list(player, self.key_list)
+        for key in key_hit_list:
+            player.has_key = True
+            key.remove_from_sprite_lists()
+
+        if player.has_key:
+            self.key_text_display.text = "Key: Collected!"
+        else:
+            self.key_text_display.text = "Key: Not Collected"
+
+        exit_hit_list = arcade.check_for_collision_with_list(player, self.exit_list)
+        if exit_hit_list and player.has_key:
+            self.game_won = True
+
 
 

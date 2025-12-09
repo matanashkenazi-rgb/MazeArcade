@@ -18,17 +18,16 @@ class Player(arcade.Sprite):
         self.center_y += self.change_y * self.speed
 
 
-    def move_with_collision(self, blocker_lists):
+    def move_with_collision(self, blocker_list):
         old_x = self.center_x
         old_y = self.center_y
         self.move_player()
 
-        for blocker_list in blocker_lists:
-            collisions = arcade.check_for_collision_with_list(self,blocker_list)
-            if collisions:
-                self.center_x = old_x
-                self.center_y = old_y
-                break
+
+        collisions = arcade.check_for_collision_with_list(self, blocker_list)
+        if collisions:
+            self.center_x = old_x
+            self.center_y = old_y
 
 
 
