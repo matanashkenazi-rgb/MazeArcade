@@ -1,6 +1,7 @@
 import arcade
 
 import wall_and_exitdoor
+from wall_and_exitdoor import ExitDoor
 
 
 class Maze_game(arcade.view):
@@ -16,7 +17,18 @@ class Maze_game(arcade.view):
     def setup(self):
         self.game_won=False
 
-        LEVEL_MAP=("")
+        LEVEL_MAP=("WWWWWWWWWWWW"
+                   "E P W W  K W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   W W    W"
+                   "W   WWW    W"
+                   "W          W"
+                   "WWWWWWWWWWWW")
         TILE_SIZE=32
 
         for row_idx, row in enumerate(LEVEL_MAP):
@@ -24,5 +36,8 @@ class Maze_game(arcade.view):
                 x = col_idx * TILE_SIZE + TILE_SIZE / 2
                 y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
                 if cell=="W":
-                wall_and_exitdoor.Wall(x,y)
+                self.wall_list.appand(wall(x,y))
+                elif cell=="E"
+                self.exit_list.appand(ExitDoor(x,y))
+
 
