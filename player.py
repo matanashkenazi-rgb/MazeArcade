@@ -11,7 +11,7 @@ class Player(arcade.Sprite):
         self.speed = 3
         self.has_key = False
 
-        self.texture = arcade.make_circle_texture(30, arcade.color.YELLOW)
+        self.texture = arcade.make_circle_texture(20, arcade.color.YELLOW)
 
     def move_player(self):
         self.center_x += self.change_x * self.speed

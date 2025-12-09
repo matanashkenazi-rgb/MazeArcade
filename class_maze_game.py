@@ -5,7 +5,6 @@ from wall_and_exitdoor import ExitDoor
 from wall_and_exitdoor import Wall
 
 
-
 class Maze_game(arcade.View):
     def __init__(self):
         super().__init__()
@@ -22,6 +21,12 @@ class Maze_game(arcade.View):
     def setup(self):
         self.game_won=False
 
+        self.wall_list = arcade.SpriteList()
+        self.key_list = arcade.SpriteList()
+        self.exit_list = arcade.SpriteList()
+        self.player_list = arcade.SpriteList()
+        self.player = arcade.SpriteList()
+
         self.key_text_display = arcade.Text(
             "Key: Not Collected",
             x=10,
@@ -30,24 +35,24 @@ class Maze_game(arcade.View):
             font_size=14
         )
 
-        map_matrix = [
+        LEVEL_MAP = [
             ["W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"],
-            ["E", " ", "P", " ", "W", " ", " ", "K", " ", "W", " ", "W"],
-            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
-            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
-            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
-            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
-            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
-            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
-            ["W", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "W"],
-            ["W", " ", " ", " ", "W", "W", "W", " ", " ", " ", " ", "W"],
-            ["W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"],
+            ["E", " ", " ", "W", " ", " ", " ", "W", " ", "K", " ", "W"],
+            ["W", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W"],
+            ["W", " ", " ", " ", " ", "W", " ", " ", " ", "W", " ", "W"],
+            ["W", " ", "W", "W", " ", "W", "W", "W", " ", "W", " ", "W"],
+            ["W", " ", " ", "W", " ", " ", " ", "W", " ", " ", " ", "W"],
+            ["W", "W", " ", "W", "W", "W", " ", "W", "W", "W", " ", "W"],
+            ["W", " ", " ", " ", " ", "W", " ", " ", " ", "W", " ", "W"],
+            ["E", "K", "W", "W", " ", "W", "W", "W", " ", "W", " ", "W"],
+            ["W", "P", " ", " ", " ", " ", " ", "W", " ", " ", " ", "W"],
+            ["W", " ", " ", "W", "W", "W", " ", "W", "W", "W", " ", "W"],
             ["W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"]
         ]
         TILE_SIZE=32
-        NUM_ROWS = len(map_matrix)
+        NUM_ROWS = len(LEVEL_MAP)
 
-        for row_idx, row in enumerate(map_matrix):
+        for row_idx, row in enumerate(LEVEL_MAP):
             for col_idx, cell in enumerate(row):
                 x = col_idx * TILE_SIZE + TILE_SIZE / 2
                 y = (NUM_ROWS - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
@@ -86,26 +91,31 @@ class Maze_game(arcade.View):
 
     def on_update(self, delta_time):
         player = self.player_list[0]
-        player.move_with_collision(self.wall_list)
 
-        key_hit_list = arcade.check_for_collision_with_list(player, self.key_list)
-        for key in key_hit_list:
-            player.has_key = True
-            key.remove_from_sprite_lists()
+        if not self.game_won:
+            player.move_with_collision(self.wall_list)
 
-        if player.has_key:
-            self.key_text_display.text = "Key: Collected!"
-        else:
-            self.key_text_display.text = "Key: Not Collected"
 
-        exit_hit_list = arcade.check_for_collision_with_list(player, self.exit_list)
-        if exit_hit_list and player.has_key:
-            self.game_won = True
+            key_hit_list = arcade.check_for_collision_with_list(player, self.key_list)
+            for key in key_hit_list:
+                player.has_key = True
+                key.remove_from_sprite_lists()
+
+            if player.has_key:
+                self.key_text_display.text = "Key: Collected!"
+            else:
+                self.key_text_display.text = "Key: Not Collected"
+
+            exit_hit_list = arcade.check_for_collision_with_list(player, self.exit_list)
+            if exit_hit_list and player.has_key:
+                self.game_won = True
+
 
 
     def on_key_press(self, key, modifiers):
-        if self.game_won:
-            return
+        if key == arcade.key.SPACE and self.game_won:
+            self.setup()
+            return  # exit early so we don't move the player this frame
 
 
         player = self.player_list[0]
