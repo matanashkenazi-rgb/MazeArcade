@@ -1,4 +1,10 @@
 import arcade
+from player import Player
+from key_class import Key
+from wall_and_exitdoor import ExitDoor
+from wall_and_exitdoor import Wall
+
+
 
 class Maze_game(arcade.View):
     def __init__(self):
@@ -34,13 +40,13 @@ class Maze_game(arcade.View):
                 x = col_idx * TILE_SIZE + TILE_SIZE / 2
                 y = (rows - row_idx - 1) * TILE_SIZE + TILE_SIZE / 2
                 if cell=="W":
-                    self.wall_list.appand(wall(x,y))
+                    self.wall_list.append(Wall(x,y))
                 elif cell=="E":
-                    self.exit_list.appand(ExitDoor(x,y))
+                    self.exit_list.append(ExitDoor(x,y))
                 elif cell=="P":
-                    self.player_list.appand(player(x,y))
+                    self.player_list.append(Player(x,y))
                 elif cell=="K":
-                    self.key_list.appand(Key(x,y))
+                    self.key_list.append(Key(x,y))
 
 
 
